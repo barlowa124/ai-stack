@@ -100,3 +100,18 @@ installers, launchers, the 180GB manifest) and prints the rebuild plan.
 The ~140GB of model weights/extensions is deliberately not automated —
 the manifest is the checklist; the scripts' compatibility report marks
 what installed cleanly last time. Independent of the coding stack.
+
+**Persona/config data is not in the repo.** Character cards, personas,
+chats, presets, instruction templates, and settings lived under
+`SillyTavern\data` and `text-generation-webui\user_data` on the old
+drive. It is small (MBs) and was never committed. When the old
+`D:\ailm` tree is reachable again:
+
+```powershell
+.\ailm-rebuild.ps1 -BackupFrom D:\ailm-old   # archives the data dirs -> userdata-backup.zip
+# ...after cloning components...
+.\ailm-rebuild.ps1 -RestoreBackup            # puts them back (skips anything already populated)
+```
+
+If the drive doesn't survive, cards sourced from chub/community repos
+can be re-downloaded. Hand-written personas and chat history cannot.
