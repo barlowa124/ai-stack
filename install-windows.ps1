@@ -38,6 +38,7 @@ Start-Sleep 4
 Write-Host "== models =="
 ollama pull qwen2.5-coder:32b          # workhorse — ~20GB, fits 4090 fully
 ollama pull qwen2.5-coder:7b           # fast trivial edits
+ollama pull gemma3:270m                # transparent observer — the deconstructed checkpoint
 Write-Host "optional heavyweight (65GB download):"
 Write-Host "  ollama pull gpt-oss:120b       # partial GPU+RAM offload, ~10-15 t/s"
 
@@ -45,5 +46,9 @@ Write-Host "== configs =="
 New-Item -ItemType Directory -Force -Path $HOME\.config\opencode | Out-Null
 Copy-Item $PSScriptRoot\.aider.conf.yml $HOME\.aider.conf.yml
 Copy-Item $PSScriptRoot\opencode.json  $HOME\.config\opencode\opencode.json -Force
+
+Write-Host "== deconstruction system (transparent Gemma 3 270M) =="
+Write-Host "  run .\deconstruct.ps1 to set up the inspectable checkpoint + dashboard"
+Write-Host "  (needs 'hf auth login' first — Gemma weights are license-gated)"
 
 Write-Host "Done. Verify with:  .\verify.ps1   then run the eval:  .\eval\eval.ps1"

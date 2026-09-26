@@ -10,6 +10,7 @@ aider (terminal pair-programmer) + opencode (agentic TUI).
 | MacBook M4 16GB | `qwen2.5-coder:14b` | biggest that fits without swap-thrash |
 | PC (4090 + 96GB) | `qwen2.5-coder:32b` | ~20GB, fully GPU-resident, ~30+ t/s |
 | PC heavyweight | `gpt-oss:120b` | ~65GB, split GPU+RAM, ~10-15 t/s — best open quality |
+| PC observer | `gemma3:270m` | the deconstructed checkpoint — every forward pass inspectable |
 
 ## Setup — Windows PC
 
@@ -25,6 +26,34 @@ aider                 # uses .aider.conf.yml -> qwen2.5-coder:32b
 aider --model ollama/gpt-oss:120b   # heavyweight for hard tasks
 opencode              # agentic TUI, model picker inside
 ```
+
+## Observability — the deconstruction layer
+
+`.\deconstruct.ps1` clones [bioprocess-decision-runtime](https://github.com/barlowa124/bioprocess-decision-runtime)
+and launches its loopback-only dashboard (`--port 8765`). That repo
+re-implements the **Gemma 3 270M** forward pass as an independently
+executable, bit-exact-verified program — all 18 layers, every boundary,
+all 262,144 logits, plus residual-stream activation capture and
+intervention tooling.
+
+Scope, honestly:
+
+- **gemma3:270m — fully transparent.** Every forward pass deconstructs to
+  instruction-level records; saved evidence replays bit-for-bit. The
+  dashboard serves the verified artifacts without needing PyTorch loaded.
+- **qwen2.5-coder:32b / gpt-oss:120b — agent-level visibility only.**
+  Their internals are opaque to the machinery (it's checkpoint-specific).
+  What you get: aider diffs/commits, opencode tool traces, Ollama logs.
+- The practical pattern the repo itself pioneered: use the transparent
+  270M as an *auditor* — its fabrication/misattribution probe work
+  measured exactly when a small model invents vs. copies values. Routing
+  a big model's numeric claims through the inspectable small one gives a
+  checkable second opinion.
+- Extending deconstruction to a bigger checkpoint (gemma3:4b is the
+  documented next candidate) is a separate, larger effort — same
+  machinery, new architecture variant.
+
+Gemma weights are license-gated: `hf auth login` before `deconstruct.ps1`.
 
 ## Eval baseline (Mac, qwen2.5-coder:14b — for comparison)
 
