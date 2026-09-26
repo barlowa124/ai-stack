@@ -1,0 +1,4 @@
+lru.py contains a buggy LRU cache — get() doesn't refresh recency, put()
+appends duplicate keys, and eviction is wrong as a result. Fix all bugs so
+test_lru.py passes. Read the tests to see the expected semantics:
+capacity-bounded, most-recently-used survives, get(-1) on misses.

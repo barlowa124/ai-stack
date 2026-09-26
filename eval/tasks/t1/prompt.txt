@@ -1,0 +1,5 @@
+Create utils.py with two functions:
+1. flatten(lst) — recursively flattens arbitrarily nested lists into one flat list.
+2. dedupe(lst) — removes duplicates while preserving first-seen order.
+Also create test_utils.py with pytest tests covering both, including edge cases.
+Write both files now — real implementations, no stubs.

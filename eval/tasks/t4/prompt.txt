@@ -1,0 +1,5 @@
+Update store.py and report.py together:
+1. Add a module constant DISCOUNT = 0.9 to store.py.
+2. Make get_item() return the discounted price (still None for missing items).
+3. Make report.py's total() sum the discounted prices, not the raw ITEMS values.
+Edit both files now.

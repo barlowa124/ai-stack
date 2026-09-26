@@ -1,0 +1,5 @@
+Write parser.py implementing evaluate(expr) -> float: a math expression
+evaluator supporting +, -, *, /, parentheses, unary minus, and whitespace.
+Do NOT use eval(). Use a real parser (recursive descent or similar) with
+correct operator precedence. Must expose a module-level function
+evaluate(expr). Write the complete implementation now — no stubs, no pass.

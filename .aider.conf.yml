@@ -1,0 +1,8 @@
+model: ollama/qwen2.5-coder:32b
+weak-model: ollama/qwen2.5-coder:7b
+edit-format: diff
+auto-commits: true
+dirty-commits: true
+dark-mode: true
+map-tokens: 2048
+no-show-model-warnings: true
