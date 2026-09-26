@@ -82,3 +82,13 @@ removed to reclaim disk. To rebuild: `./install-macos.sh`.
 - gpt-oss:120b partial-offload needs ~65GB free disk + leaves ~30GB headroom
   in RAM. Skip it if storage is tight — 32b covers 90% of coding work.
 - Stop server: `ollama stop` / close tray icon (Win) or `pkill -f "ollama serve"` (Mac).
+
+## AILM rebuild (old D:\ailm assistant stack)
+
+`.\ailm-rebuild.ps1` restores the skeleton of the oobabooga-based stack:
+clones [ailm-stack-scripts](https://github.com/barlowa124/ailm-stack-scripts)
+(the surviving orchestration half — SillyTavern configs, extension
+installers, launchers, the 180GB manifest) and prints the rebuild plan.
+The ~140GB of model weights/extensions is deliberately not automated —
+the manifest is the checklist; the scripts' compatibility report marks
+what installed cleanly last time. Independent of the coding stack.
