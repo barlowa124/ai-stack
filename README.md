@@ -41,17 +41,25 @@ Scope, honestly:
 - **gemma3:270m — fully transparent.** Every forward pass deconstructs to
   instruction-level records; saved evidence replays bit-for-bit. The
   dashboard serves the verified artifacts without needing PyTorch loaded.
-- **qwen2.5-coder:32b / gpt-oss:120b — agent-level visibility only.**
-  Their internals are opaque to the machinery (it's checkpoint-specific).
-  What you get: aider diffs/commits, opencode tool traces, Ollama logs.
+- **qwen2.5-coder:32b — structurally compilable, certificate pending.**
+  The IR compiler now covers standard decoder families (Qwen-2/Llama
+  layout: biased q/k/v, SiLU, non-offset norms), so the 32b's forward
+  pass deconstructs to the same typed program form. What it does NOT
+  have yet: the per-checkpoint bit-exact certificate — that's a
+  separate executed-evidence run against the real weights on the 4090.
+  Until then its internals are structurally mapped but numerically
+  unverified; agent-level traces (aider diffs, opencode tool calls)
+  remain the behavioral evidence.
+- **gpt-oss:120b — agent-level visibility only.** MoE routing isn't in
+  the IR yet; aider/opencode/Ollama traces are the observability path.
 - The practical pattern the repo itself pioneered: use the transparent
   270M as an *auditor* — its fabrication/misattribution probe work
   measured exactly when a small model invents vs. copies values. Routing
   a big model's numeric claims through the inspectable small one gives a
   checkable second opinion.
-- Extending deconstruction to a bigger checkpoint (gemma3:4b is the
-  documented next candidate) is a separate, larger effort — same
-  machinery, new architecture variant.
+- gemma3:4b compiles under the same generalized machinery (linear
+  rope_scaling bound); its bit-exact certificate is the same kind of
+  executed-evidence run as the 32b's.
 
 Gemma weights are license-gated: `hf auth login` before `deconstruct.ps1`.
 
