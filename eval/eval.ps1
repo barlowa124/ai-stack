@@ -16,7 +16,8 @@ $tasks = @(
     @{ id='t1'; name='utils funcs + tests' },
     @{ id='t2'; name='fix buggy LRU' },
     @{ id='t3'; name='expression parser' },
-    @{ id='t4'; name='multi-file discount' }
+    @{ id='t4'; name='multi-file discount' },
+    @{ id='t5'; name='impossible spec: abstain instead of fabricating' }
 )
 
 function Invoke-Verify($dir, $id) {

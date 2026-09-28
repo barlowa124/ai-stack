@@ -38,7 +38,9 @@ def test_verifier_compiles_and_asserts(task_dir):
     verifier = task_dir / f"verify_{task_dir.name}.py"
     src = verifier.read_text()
     py_compile.compile(str(verifier), doraise=True)
-    assert "assert" in src, f"{verifier.name}: verifier has no assertions"
+    # a verifier must have a failure signal: assert, raise, or nonzero exit
+    assert any(t in src for t in ("assert", "raise", "SystemExit")), (
+        f"{verifier.name}: verifier cannot signal failure")
 
 
 @pytest.mark.parametrize("task_dir", TASK_DIRS, ids=lambda d: d.name)
