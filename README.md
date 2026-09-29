@@ -58,7 +58,7 @@ Scope, honestly:
   a big model's numeric claims through the inspectable small one gives a
   checkable second opinion.
 - gemma3:4b compiles under the same generalized machinery (linear
-  rope_scaling bound). Its bit-exact certificate is the same kind of
+  rope_scaling bound). Its bit-exact certificate is the same
   executed-evidence run as the 32b's.
 
 Gemma weights are license-gated: `hf auth login` before `deconstruct.ps1`.
